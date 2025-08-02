@@ -9,7 +9,6 @@ const SpongeBob = () => {
         alt="SpongeBob SquarePants"
         className="h-4/5 w-auto object-contain"
       />
-      <p className="text-sm text-gray-700 mt-1 text-center">SpongeBob SquarePants</p>
     </div>
   );
 };

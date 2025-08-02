@@ -9,7 +9,6 @@ const Simbaa = () => {
         alt="Simba"
         className="h-4/5 w-auto object-contain"
       />
-      <p className="text-sm text-gray-700 mt-1 text-center">Simba</p>
     </div>
   );
 };
