@@ -1,20 +1,18 @@
 import React from 'react'
+import './global.css'
 
 function App() {
-  
-
   return (
     <>
-      <div>
-        <h1 className="text-amber-200">
-          Hello world!
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <h1 className="text-9xl">
+          PixelPals
         </h1>
-        <p className="text-lg text-red-100">
-          This is a simple React app with Tailwind CSS.
-        </p>
+        <button>SIGN IN WITH GOOGLE</button>
+
       </div>
     </>
   )
 }
 
-export default App
+export default App;
