@@ -4,6 +4,7 @@ import googleLogo from './assets/google.png';
 import { signInWithGoogleAndStoreUser } from './authService';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import CharacterSelectPage from "./pages/CharacterSelectPage";
+import ChatRoom from "./pages/ChatRoom";
 import Header from './components/Header';
 
 function LandingPage() {
@@ -56,6 +57,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/characterselect" element={<CharacterSelectPage />} />
+        <Route path="/chatroom" element={<ChatRoom />} />
       </Routes>
     </>
   );
