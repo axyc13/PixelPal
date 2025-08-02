@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        '04b': ["04b", "monospace", "sans-serif"],
+        '04b': ["04b", "monospace", "sans-serif"], pixel: ['"Pixelify Sans"', 'sans-serif']
       },
     },
   },
