@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './global.css';
 import googleLogo from './assets/google.png';
 import { signInWithGoogleAndStoreUser } from './authService';
@@ -62,3 +62,4 @@ function App() {
 }
 
 export default App;
+
