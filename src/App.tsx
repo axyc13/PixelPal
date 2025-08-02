@@ -66,7 +66,7 @@ function LandingPage() {
                 className="w-full h-full object-contain scale-x-[-1]"
               />
               <p className="font-pixel absolute top-5.5 left-7.5 text-m">
-                revist your childhood!
+                revisit your childhood!
               </p>
             </div>
           </div>
