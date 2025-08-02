@@ -1,20 +1,13 @@
-import React from 'react'
+import React from 'react';
+import CardComponent from './components/CardComponent';
 
 function App() {
-  
-
   return (
-    <>
-      <div>
-        <h1 className="text-amber-200">
-          Hello world!
-        </h1>
-        <p className="text-lg text-red-100">
-          This is a simple React app with Tailwind CSS.
-        </p>
-      </div>
-    </>
-  )
+    <div className="p-8 bg-gray-100 min-h-screen flex items-center justify-center">
+      <CardComponent title="CHARACTERNAME">
+      </CardComponent>
+    </div>
+  );
 }
 
-export default App
+export default App;
