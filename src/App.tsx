@@ -29,13 +29,13 @@ function App() {
         </h1>
         {user ? (
           <div className="text-center">
-            <img src={user.photoURL} alt="User" className="w-16 h-16 rounded-full mx-auto mb-2 border-2 border-black" />
-            <div className="text-lg font-bold">Welcome, {user.displayName || user.email}!</div>
+            <img src={user.photoURL} alt="User" className="w-25 h-25 rounded-full mx-auto mb-2 border-2 border-black" />
+            <div className="text-lg font-bold bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5">Welcome, {user.displayName || user.email}!</div>
           </div>
         ) : (
-          <div className="bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5">
+          <div className="bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5 hover:cursor-pointer">
             <img src={googleLogo} className="w-6 h-6 inline mr-2" alt="Google Logo" />
-            <button onClick={handleGoogleSignIn} disabled={loading}>
+            <button className = "hover:cursor-pointer" onClick={handleGoogleSignIn} disabled={loading}>
               {loading ? 'Signing In...' : 'Sign Up With Google'}
             </button>
           </div>
