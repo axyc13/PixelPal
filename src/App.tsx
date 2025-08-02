@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './global.css';
 import googleLogo from './assets/google.png';
 import { signInWithGoogleAndStoreUser } from './authService';
+import { BrowserRouter as Routes, Route } from 'react-router-dom';
+import CharacterSelectPage from "./pages/CharacterSelectPage";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -23,6 +25,11 @@ function App() {
 
   return (
     <>
+    <div>
+      <Routes>
+          <Route path="/characters" element={<CharacterSelectPage />} />
+        </Routes>
+    </div>
       <div className="flex flex-col items-center justify-center h-screen bg-[#EBE9D2]">
         <h1 className="text-9xl font-04b text-[#3B23BB] pb-25">
           PIXELPAL
