@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './global.css';
 import googleLogo from './assets/google.png';
-import star from './assets/star.png';
+import blueStar from './assets/blueStar.png';
+import pinkStar from './assets/pinkStar.png';
+import heart from './assets/heart.png';
 import cursor from './assets/cursor.png';
 import speech from './assets/speech.png';
 import trail from './assets/trail.png';
@@ -34,15 +36,52 @@ function LandingPage() {
       <div className="flex flex-col items-center justify-center h-screen bg-linear-to-b from-[#EBE9D2] to-[#F8C2FF]">
         <div className="relative inline-block">
           <img
-            src={star}
+            src={pinkStar}
             alt="Star"
-            className="absolute -top-22 -left-14 w-15 h-15"
+            className="absolute -top-3 -left-18 w-8 h-8"
           />
           <img
-            src={star}
+            src={pinkStar}
             alt="Star"
-            className="absolute -top-12 -left-3 w-15 h-15"
+            className="absolute -top-2 -left-5 w-16 h-16"
           />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute top-12 -right-21 w-10 h-10"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute -top-3 -right-25 w-8 h-8"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute -top-2 -right-13 w-16 h-16"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute top-12 -left-15 w-10 h-10"
+          />
+          <img
+            src={heart}
+            alt="Star"
+            className="absolute -top-16 left-33 w-18 h-18"
+          />
+          <img src={blueStar} alt="Star" className="absolute -top-25 -left-40 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -top-35 left-6 w-6 h-6"/>
+          <img src={blueStar} alt="Star" className="absolute -top-40 left-15 w-4 h-4"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-2 left-3 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-6 left-13 w-5 h-5"/>
+          <img src={blueStar} alt="Star" className="absolute -top-20 right-13 w-5 h-5"/>
+          <img src={blueStar} alt="Star" className="absolute -top-28 right-20 w-7 h-7"/>
+          <img src={blueStar} alt="Star" className="absolute -top-50 -right-18 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-29 right-14 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-40 -right-15 w-7 h-7"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-17 -right-53 w-6 h-6"/>
+
           <div className="absolute -top-40 -right-45">
             <div className="relative w-45 h-25">
               <img
