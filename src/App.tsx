@@ -25,11 +25,6 @@ function App() {
 
   return (
     <>
-    <div>
-      <Routes>
-          <Route path="/characters" element={<CharacterSelectPage />} />
-        </Routes>
-    </div>
       <div className="flex flex-col items-center justify-center h-screen bg-[#EBE9D2]">
         <h1 className="text-9xl font-04b text-[#3B23BB] pb-25">
           PIXELPAL
