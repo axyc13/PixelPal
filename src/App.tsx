@@ -2,8 +2,6 @@ import React from 'react'
 import './global.css'
 
 function App() {
-  
-
   return (
     <>
       <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -17,4 +15,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
