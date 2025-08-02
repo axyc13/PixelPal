@@ -1,2 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
 @import "tailwindcss";
+
+
+@font-face {
+  font-family: '04b';
+  src: url('./assets/fonts/O4B3O.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Optional: utility class for quick testing */
+.font-04b {
+  font-family: '04b', monospace, sans-serif;
+}
+
+.font-pixel {
+  font-family: 'Pixelify Sans', sans-serif;
+}
 
