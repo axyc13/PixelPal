@@ -1,18 +1,49 @@
-import React from 'react'
-import './global.css'
+import React, { useState } from 'react';
+import './global.css';
+import googleLogo from './assets/google.png';
+import { signInWithGoogleAndStoreUser } from './authService';
 
 function App() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const userData = await signInWithGoogleAndStoreUser();
+      setUser(userData);
+    } catch (err: any) {
+      setError(err.message || 'Sign in failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-        <h1 className="text-9xl">
-          PixelPals
+      <div className="flex flex-col items-center justify-center h-screen bg-[#EBE9D2]">
+        <h1 className="text-9xl font-04b text-[#3B23BB] pb-25">
+          PIXELPAL
         </h1>
-        <button>SIGN IN WITH GOOGLE</button>
-
+        {user ? (
+          <div className="text-center">
+            <img src={user.photoURL} alt="User" className="w-16 h-16 rounded-full mx-auto mb-2 border-2 border-black" />
+            <div className="text-lg font-bold">Welcome, {user.displayName || user.email}!</div>
+          </div>
+        ) : (
+          <div className="bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5">
+            <img src={googleLogo} className="w-6 h-6 inline mr-2" alt="Google Logo" />
+            <button onClick={handleGoogleSignIn} disabled={loading}>
+              {loading ? 'Signing In...' : 'Sign Up With Google'}
+            </button>
+          </div>
+        )}
+        {error && <div className="text-red-600 mt-4">{error}</div>}
       </div>
     </>
-  )
+  );
 }
 
 export default App;
