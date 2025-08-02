@@ -6,11 +6,15 @@ import cursor from './assets/cursor.png';
 import speech from './assets/speech.png';
 import trail from './assets/trail.png';
 import { signInWithGoogleAndStoreUser } from './authService';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import CharacterSelectPage from "./pages/CharacterSelectPage";
+import Header from './components/Header';
 
-function App() {
+function LandingPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
+  const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
@@ -18,6 +22,7 @@ function App() {
     try {
       const userData = await signInWithGoogleAndStoreUser();
       setUser(userData);
+      navigate('/characterselect');
     } catch (err: any) {
       setError(err.message || 'Sign in failed');
     } finally {
@@ -26,7 +31,6 @@ function App() {
   };
 
   return (
-    <>
       <div className="flex flex-col items-center justify-center h-screen bg-linear-to-b from-[#EBE9D2] to-[#F8C2FF]">
         <div className="relative inline-block">
           <img
@@ -100,6 +104,17 @@ function App() {
         )}
         {error && <div className="text-red-600 mt-4">{error}</div>}
       </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/characterselect" element={<CharacterSelectPage />} />
+      </Routes>
     </>
   );
 }
