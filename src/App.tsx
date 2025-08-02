@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './global.css';
 import googleLogo from './assets/google.png';
 import blueStar from './assets/blueStar.png';
@@ -159,3 +159,4 @@ function App() {
 }
 
 export default App;
+

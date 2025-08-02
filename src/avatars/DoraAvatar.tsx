@@ -1,13 +1,14 @@
 import DoraImage from "../images/Dora_photo1.webp";
+
 const DoraAvatar = () => {
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <img
         src={DoraImage}
         alt="Dora the Explorer"
-        className="w-64"
+        className="h-4/5 w-auto object-contain"
       />
-      <p className="text-lg font-semibold text-gray-700">Dora the Explorer</p>
+      <p className="text-sm text-gray-700 mt-1 text-center">Dora the Explorer</p>
     </div>
   );
 };
