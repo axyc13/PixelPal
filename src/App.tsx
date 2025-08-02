@@ -11,6 +11,8 @@ import { signInWithGoogleAndStoreUser } from './authService';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import CharacterSelectPage from "./pages/CharacterSelectPage";
 import Header from './components/Header';
+import ChatPage from './pages/ChatPage';
+import TestMic from './components/TestMic';
 
 function LandingPage() {
   const [loading, setLoading] = useState(false);
@@ -153,6 +155,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/characterselect" element={<CharacterSelectPage />} />
+        <Route path="/testMic" element={<TestMic />} />
+        <Route path="/chat/:character" element={<ChatPage />} />
       </Routes>
     </>
   );
