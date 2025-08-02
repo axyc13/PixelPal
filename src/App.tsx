@@ -1,13 +1,18 @@
-import React from 'react';
-import CardComponent from './components/CardComponent';
+import React from 'react'
+import './global.css'
 
 function App() {
   return (
-    <div className="p-8 bg-gray-100 min-h-screen flex items-center justify-center">
-      <CardComponent title="CHARACTERNAME">
-      </CardComponent>
-    </div>
-  );
+    <>
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <h1 className="text-9xl">
+          PixelPals
+        </h1>
+        <button>SIGN IN WITH GOOGLE</button>
+
+      </div>
+    </>
+  )
 }
 
 export default App;
