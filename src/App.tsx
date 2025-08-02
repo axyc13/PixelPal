@@ -8,14 +8,14 @@ import cursor from './assets/cursor.png';
 import speech from './assets/speech.png';
 import trail from './assets/trail.png';
 import { signInWithGoogleAndStoreUser } from './authService';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import CharacterSelectPage from "./pages/CharacterSelectPage";
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { CharacterSelectPage } from './pages/CharacterSelectPage';
 import Header from './components/Header';
+import { ChatPage } from './pages/ChatPage';
 
-function LandingPage() {
+function LandingPage({ user, setUser }: { user: any; setUser: (user: any) => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {
@@ -147,12 +147,15 @@ function LandingPage() {
 }
 
 function App() {
+  const [user, setUser] = useState<any>(null);
+
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/characterselect" element={<CharacterSelectPage />} />
+        <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
+        <Route path="/characterselect" element={<CharacterSelectPage user={user} />} />
+        <Route path="/chat/:characterId" element={<ChatPage user={user} />} />
       </Routes>
     </>
   );
