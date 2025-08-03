@@ -436,9 +436,9 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 p-4 font-['O4B3O'] flex items-center justify-center">
-      <div className="bg-white border-4 border-purple-600 shadow-2xl w-full max-w-6xl h-[90vh]">
+      <div className="bg-white border-2 border-purple-600 shadow-2xl w-full max-w-6xl h-[90vh] rounded-lg overflow-hidden">
         {/* Window Title Bar */}
-        <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-3 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-3 flex items-center justify-between border-b border-purple-800">
           <div className="flex items-center space-x-2">
             <div className="w-6 h-6 bg-yellow-300 rounded-sm flex items-center justify-center">
               <span className="text-black text-xs font-bold">💬</span>
@@ -453,26 +453,26 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
         </div>
 
         {/* Main Content */}
-        <div className="flex h-full">
+        <div className="flex h-[calc(100%-60px)]">
           {/* Left Panel - Character Info */}
           <div className="w-64 bg-gradient-to-br from-pink-50 to-yellow-50 border-r-2 border-purple-600 p-4">
             <div className="text-center">
-              <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-400 to-purple-600 rounded-none border-2 border-purple-700 flex items-center justify-center text-2xl mb-4">
+              <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg border-2 border-purple-700 flex items-center justify-center text-2xl mb-4 shadow-lg">
                 {character.name.charAt(0)}
               </div>
               <h3 className="text-lg font-bold text-purple-800 mb-2">{character.name}</h3>
               <p className="text-sm text-gray-600 mb-4">{character.show}</p>
-              <div className="bg-white border-2 border-purple-400 p-3 rounded-none">
+              <div className="bg-white border-2 border-purple-400 p-3 rounded-lg shadow-md">
                 <p className="text-sm text-gray-700 font-bold">"{character.catchphrases[0]}"</p>
               </div>
             </div>
           </div>
 
           {/* Right Panel - Chat Area */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col bg-white">
             {/* Messages Area */}
-            <div className="flex-1 bg-white p-4 overflow-y-auto">
-              <div className="border-2 border-gray-400 bg-white h-full p-4 overflow-y-auto">
+            <div className="flex-1 bg-white p-3 overflow-y-auto">
+              <div className="border-2 border-purple-400 bg-white h-full p-3 overflow-y-auto rounded-lg shadow-inner">
                 <div className="space-y-4">
                   {messages.map((message) => (
                   <div
@@ -480,7 +480,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
                     className={`flex ${message.sender === 'You' ? 'justify-end' : 'justify-start'} mb-4`}
                   >
                     <div
-                      className={`max-w-xs px-4 py-3 rounded-none border-2 ${
+                      className={`max-w-xs px-4 py-3 rounded-lg border-2 ${
                         message.sender === 'You'
                           ? 'bg-blue-100 border-blue-400 text-blue-800'
                           : getCharacterMessageStyle(character)
@@ -504,7 +504,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
                 ))}
                 {isTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-purple-100 border-2 border-purple-400 px-4 py-2 rounded-none animate-pulse">
+                    <div className="bg-purple-100 border-2 border-purple-400 px-4 py-2 rounded-lg animate-pulse shadow-md">
                       <div className="font-bold text-xs mb-1">{character.name}</div>
                       <div className="text-sm italic">{typingMessage || "Typing..."}</div>
                     </div>
@@ -517,18 +517,18 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
             
             {/* Horizontal Formatting Toolbar */}
             <div className="bg-white border-t border-gray-200 px-4 py-2">
-              <div className="flex items-center justify-center space-x-4">
+              <div className="flex items-center justify-center space-x-3">
                 {/* Mic button */}
-                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" fill="#4F46E5"/>
                     <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
 
                 {/* Emoji button */}
-                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="10" fill="#EDB948"/>
                     <circle cx="8" cy="10" r="1" fill="black"/>
                     <circle cx="16" cy="10" r="1" fill="black"/>
@@ -537,8 +537,8 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
                 </button>
 
                 {/* Gallery button */}
-                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <rect x="3" y="3" width="18" height="18" rx="2" fill="#5232F9"/>
                     <circle cx="8.5" cy="8.5" r="1.5" fill="white"/>
                     <path d="M21 15l-5-5L5 21" stroke="white" strokeWidth="2"/>
@@ -547,60 +547,60 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
 
                 {/* Font size A button */}
                 <button 
-                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors"
+                  className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors"
                   style={{ fontFamily: 'DM Serif Text' }}
                 >
-                  <span className="text-lg font-bold text-gray-700">A</span>
+                  <span className="text-base font-bold text-gray-700">A</span>
                 </button>
 
                 {/* Person button */}
-                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="8" r="3" fill="black"/>
                     <path d="M16 21v-2a4 4 0 0 0-8 0v2" stroke="black" strokeWidth="2" fill="black"/>
                   </svg>
                 </button>
 
                 {/* Arrow button */}
-                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <path d="M7 10l5 5 5-5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </button>
 
                 {/* Divider */}
-                <div className="h-6 w-px bg-gray-300"></div>
+                <div className="h-5 w-px bg-gray-300"></div>
 
                 {/* Bold button */}
                 <button 
-                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors font-black"
+                  className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors font-black"
                   style={{ fontFamily: 'Arial Black' }}
                 >
-                  <span className="text-lg font-bold text-gray-700">B</span>
+                  <span className="text-base font-bold text-gray-700">B</span>
                 </button>
 
                 {/* Italic button */}
                 <button 
-                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors italic"
+                  className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors italic"
                   style={{ fontFamily: 'Averia Serif Libre' }}
                 >
-                  <span className="text-lg font-bold text-gray-700">I</span>
+                  <span className="text-base font-bold text-gray-700">I</span>
                 </button>
 
                 {/* Underline button */}
                 <button 
-                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors underline"
+                  className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors underline"
                   style={{ fontFamily: 'Averia Serif Libre' }}
                 >
-                  <span className="text-lg font-bold text-gray-700">U</span>
+                  <span className="text-base font-bold text-gray-700">U</span>
                 </button>
 
                 {/* Divider */}
-                <div className="h-6 w-px bg-gray-300"></div>
+                <div className="h-5 w-px bg-gray-300"></div>
 
                 {/* Chat button */}
-                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="#FF797A"/>
                     <path d="M8 10h8M8 14h4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
@@ -609,19 +609,19 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
             </div>
 
             {/* Message Input */}
-            <div className="bg-white border-t-2 border-purple-600 p-4 flex space-x-2">
+            <div className="bg-white border-t-2 border-purple-600 p-3 flex space-x-2">
               <input
                 type="text"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="flex-1 px-4 py-2 border-2 border-purple-400 bg-white focus:outline-none focus:border-purple-600 text-purple-800 font-bold"
+                className="flex-1 px-3 py-2 border-2 border-purple-400 bg-white focus:outline-none focus:border-purple-600 text-purple-800 font-bold rounded-lg shadow-sm"
               />
               <button
                 onClick={sendMessage}
                 disabled={!newMessage.trim()}
-                className="bg-gradient-to-r from-purple-500 to-purple-600 border-2 border-purple-700 text-white px-6 py-2 font-bold hover:from-purple-400 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="bg-gradient-to-r from-purple-500 to-purple-600 border-2 border-purple-700 text-white px-5 py-2 font-bold hover:from-purple-400 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all rounded-lg shadow-lg"
               >
                 Send
               </button>
