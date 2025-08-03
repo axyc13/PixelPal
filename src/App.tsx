@@ -9,7 +9,7 @@ import speech from './assets/speech.png';
 import trail from './assets/trail.png';
 import { signInWithGoogleAndStoreUser } from './authService';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { CharacterSelectPage } from './pages/CharacterSelectPage';
+import CharacterSelectPage from './pages/CharacterSelectPage';
 import Header from './components/Header';
 import { ChatPage } from './pages/ChatPage';
 
