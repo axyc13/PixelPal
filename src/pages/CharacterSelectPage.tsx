@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { CHARACTERS_DATABASE } from '../characterService';
 import Tinkerbell from "../avatars/Tinkerbell";
 import SpongeBob from "../avatars/SpongeBob";
 import MickeyMouse from "../avatars/MickeyMouse";
@@ -9,10 +10,24 @@ import clouds from "../assets/clouds.png";
 import "../global.css";
 import AddCharacter from "../avatars/AddCharacter";
 
-const characters = [Tinkerbell, SpongeBob, MickeyMouse, ScoobyDoo, Simbaa, DoraAvatar];
+const characters = [
+  { component: Tinkerbell, id: 'tinkerbell' },
+  { component: SpongeBob, id: 'spongebob' },
+  { component: MickeyMouse, id: 'mickey' },
+  { component: ScoobyDoo, id: 'scooby' },
+  { component: Simbaa, id: 'simba' },
+  { component: DoraAvatar, id: 'dora' }
+];
 
 export default function CharacterSelectPage() {
   const navigate = useNavigate();
+
+  const handleCharacterSelect = (characterId: string) => {
+    const character = CHARACTERS_DATABASE.find(char => char.id === characterId);
+    if (character) {
+      navigate(`/chat/${characterId}`, { state: { character } });
+    }
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#EFE9D1] to-[#ECD3E8] flex flex-col items-center py-10 overflow-hidden">
       {/* Title */}
@@ -23,21 +38,25 @@ export default function CharacterSelectPage() {
       <img src = {clouds} alt="Clouds" className="absolute top-40 left-0 w-80 h-80 scale-x-[-1]" />
       {/* Grid of folders */}
       <div className="grid grid-cols-3 pt-20 transform scale-150">
-        {characters.map((CharacterComponent, index) => (
-          <div
-            key={index}
-            className="group relative w-full h-full rounded-sm flex items-center justify-center"
-          >
-            {/* Character inside - silhouette by default */}
-            <div className="w-full h-full flex items-center justify-center p-4 overflow-hidden">
-              <div className="transition-transform duration-300 hover:cursor-pointer group-hover:scale-110 w-full h-full flex items-center justify-center">
-                <div className="max-w-[150px] max-h-[150px] w-full h-full">
-                  <CharacterComponent />
+        {characters.map((characterData, index) => {
+          const CharacterComponent = characterData.component;
+          return (
+            <div
+              key={index}
+              className="group relative w-full h-full rounded-sm flex items-center justify-center"
+              onClick={() => handleCharacterSelect(characterData.id)}
+            >
+              {/* Character inside - silhouette by default */}
+              <div className="w-full h-full flex items-center justify-center p-4 overflow-hidden">
+                <div className="transition-transform duration-300 hover:cursor-pointer group-hover:scale-110 w-full h-full flex items-center justify-center">
+                  <div className="max-w-[150px] max-h-[150px] w-full h-full">
+                    <CharacterComponent />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         {/* Empty column 1 */}
         <div />
 
