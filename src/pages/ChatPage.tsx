@@ -4,6 +4,9 @@ import type { Character } from '../characterService';
 import { generateCharacterResponse } from '../characterService';
 import { chatService } from '../chatService';
 import type { ChatSession } from '../chatService';
+import exit from '../assets/exit.png';
+import minimise from '../assets/minimise.png';
+import full from '../assets/full.png';
 
 // Enhanced character typing behavior functions
 function getCharacterThinkingMessage(character: Character): string {
@@ -294,7 +297,6 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
   const [newMessage, setNewMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [typingMessage, setTypingMessage] = useState('');
-  const [activeTab, setActiveTab] = useState<'Character' | 'Book'>('Character');
   const [character, setCharacter] = useState<Character | null>(null);
   const [session, setSession] = useState<ChatSession | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -443,44 +445,11 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
             </div>
             <span className="font-bold text-lg">Chatroom</span>
           </div>
-          <div className="flex space-x-1">
-            <div className="w-6 h-6 bg-gray-300 border border-gray-400 flex items-center justify-center">
-              <span className="text-gray-600 text-xs">─</span>
-            </div>
-            <div className="w-6 h-6 bg-gray-300 border border-gray-400 flex items-center justify-center">
-              <span className="text-gray-600 text-xs">□</span>
-            </div>
-            <div 
-              className="w-6 h-6 bg-red-500 border border-red-600 flex items-center justify-center cursor-pointer"
-              onClick={handleClose}
-            >
-              <span className="text-white text-xs">×</span>
-            </div>
+          <div className="flex items-center gap-1">
+            <img src={minimise} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="minimise" />
+            <img src={full} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="full" />
+            <img src={exit} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="back" onClick={handleClose} />
           </div>
-        </div>
-
-        {/* Tabs */}
-        <div className="bg-gray-200 border-b-2 border-purple-600 flex">
-          <button
-            onClick={() => setActiveTab('Character')}
-            className={`px-6 py-2 font-bold text-sm border-r-2 border-purple-600 ${
-              activeTab === 'Character' 
-                ? 'bg-white text-purple-800' 
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Character
-          </button>
-          <button
-            onClick={() => setActiveTab('Book')}
-            className={`px-6 py-2 font-bold text-sm ${
-              activeTab === 'Book' 
-                ? 'bg-white text-purple-800' 
-                : 'bg-gray-200 text-gray-600 hover:bg-gray-100'
-            }`}
-          >
-            Book
-          </button>
         </div>
 
         {/* Main Content */}
@@ -503,8 +472,9 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
           <div className="flex-1 flex flex-col">
             {/* Messages Area */}
             <div className="flex-1 bg-white p-4 overflow-y-auto">
-              <div className="space-y-4">
-                {messages.map((message) => (
+              <div className="border-2 border-gray-400 bg-white h-full p-4 overflow-y-auto">
+                <div className="space-y-4">
+                  {messages.map((message) => (
                   <div
                     key={message.id}
                     className={`flex ${message.sender === 'You' ? 'justify-end' : 'justify-start'} mb-4`}
@@ -514,7 +484,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
                         message.sender === 'You'
                           ? 'bg-blue-100 border-blue-400 text-blue-800'
                           : getCharacterMessageStyle(character)
-                      } shadow-md hover:shadow-lg transition-shadow`}
+                      } shadow-md hover:shadow-xl transition-shadow`}
                     >
                       <div className="font-bold text-xs mb-2 flex items-center gap-1">
                         {message.sender === 'You' ? (
@@ -540,12 +510,104 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
                     </div>
                   </div>
                 )}
+                </div>
+                <div ref={messagesEndRef} />
               </div>
-              <div ref={messagesEndRef} />
+            </div>
+            
+            {/* Horizontal Formatting Toolbar */}
+            <div className="bg-white border-t border-gray-200 px-4 py-2">
+              <div className="flex items-center justify-center space-x-4">
+                {/* Mic button */}
+                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" fill="#4F46E5"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+
+                {/* Emoji button */}
+                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" fill="#EDB948"/>
+                    <circle cx="8" cy="10" r="1" fill="black"/>
+                    <circle cx="16" cy="10" r="1" fill="black"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="black" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </button>
+
+                {/* Gallery button */}
+                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="3" width="18" height="18" rx="2" fill="#5232F9"/>
+                    <circle cx="8.5" cy="8.5" r="1.5" fill="white"/>
+                    <path d="M21 15l-5-5L5 21" stroke="white" strokeWidth="2"/>
+                  </svg>
+                </button>
+
+                {/* Font size A button */}
+                <button 
+                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors"
+                  style={{ fontFamily: 'DM Serif Text' }}
+                >
+                  <span className="text-lg font-bold text-gray-700">A</span>
+                </button>
+
+                {/* Person button */}
+                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="8" r="3" fill="black"/>
+                    <path d="M16 21v-2a4 4 0 0 0-8 0v2" stroke="black" strokeWidth="2" fill="black"/>
+                  </svg>
+                </button>
+
+                {/* Arrow button */}
+                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M7 10l5 5 5-5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+
+                {/* Divider */}
+                <div className="h-6 w-px bg-gray-300"></div>
+
+                {/* Bold button */}
+                <button 
+                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors font-black"
+                  style={{ fontFamily: 'Arial Black' }}
+                >
+                  <span className="text-lg font-bold text-gray-700">B</span>
+                </button>
+
+                {/* Italic button */}
+                <button 
+                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors italic"
+                  style={{ fontFamily: 'Averia Serif Libre' }}
+                >
+                  <span className="text-lg font-bold text-gray-700">I</span>
+                </button>
+
+                {/* Underline button */}
+                <button 
+                  className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors underline"
+                  style={{ fontFamily: 'Averia Serif Libre' }}
+                >
+                  <span className="text-lg font-bold text-gray-700">U</span>
+                </button>
+
+                {/* Divider */}
+                <div className="h-6 w-px bg-gray-300"></div>
+
+                {/* Chat button */}
+                <button className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="#FF797A"/>
+                    <path d="M8 10h8M8 14h4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </button>
+              </div>
             </div>
 
-            {/* Character Quick Response Buttons - REMOVED for natural conversation */}
-            
             {/* Message Input */}
             <div className="bg-white border-t-2 border-purple-600 p-4 flex space-x-2">
               <input
