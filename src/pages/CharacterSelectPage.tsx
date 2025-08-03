@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Tinkerbell from "../avatars/Tinkerbell";
 import SpongeBob from "../avatars/SpongeBob";
 import MickeyMouse from "../avatars/MickeyMouse";
@@ -11,6 +12,7 @@ import AddCharacter from "../avatars/AddCharacter";
 const characters = [Tinkerbell, SpongeBob, MickeyMouse, ScoobyDoo, Simbaa, DoraAvatar];
 
 export default function CharacterSelectPage() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#EFE9D1] to-[#ECD3E8] flex flex-col items-center py-10 overflow-hidden">
       {/* Title */}
