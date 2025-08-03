@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { CHARACTERS_DATABASE } from '../characterService';
 import Tinkerbell from "../avatars/Tinkerbell";
 import SpongeBob from "../avatars/SpongeBob";
 import MickeyMouse from "../avatars/MickeyMouse";
@@ -21,6 +22,13 @@ const characters = [
 
 export default function CharacterSelectPage() {
   const navigate = useNavigate();
+
+  const handleCharacterSelect = (characterId: string) => {
+    const character = CHARACTERS_DATABASE.find(char => char.id === characterId);
+    if (character) {
+      navigate(`/chat/${characterId}`, { state: { character } });
+    }
+  };
   return (
     <>
     <Header />
@@ -47,8 +55,8 @@ export default function CharacterSelectPage() {
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         {/* Empty column 1 */}
         <div />
 
