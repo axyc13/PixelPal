@@ -520,7 +520,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
             <div className="w-6 h-6 bg-yellow-300 rounded-sm flex items-center justify-center">
               <span className="text-black text-xs font-bold">💬</span>
             </div>
-            <span className="font-bold font-04b text-lg">Chatroom</span>
+            <span className="font-bold text-lg">Chatroom</span>
           </div>
           <div className="flex items-center gap-1">
             <img src={minimise} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="minimise" />
@@ -530,8 +530,8 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
         </div>
 
         {/* Main Content */}
-        <div className="flex h-full">
-          {/* Left Panel - Character PNG Image and Name */}
+        <div className="flex h-[calc(100%-60px)]">
+          {/* Left Panel - Character Info */}
           <div className="w-64 flex flex-col items-center justify-center border-r-2 border-purple-600 p-4">
             <div className="flex flex-col items-center justify-center w-full h-full">
               <div className="w-48 h-48 flex items-center justify-center">

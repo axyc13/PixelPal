@@ -55,8 +55,8 @@ export default function CharacterSelectPage() {
                 </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
         {/* Empty column 1 */}
         <div />
 
