@@ -1,6 +1,8 @@
+
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import Header from "./Header";
 
 const characterPrompts: Record<string, string> = {
   mickey:
@@ -123,54 +125,74 @@ const CharacterVoiceChat: React.FC = () => {
     speechSynthesis.speak(utterance);
   };
 
+
   return (
-    <div className="max-w-md mx-auto p-4 bg-white shadow rounded mt-8">
-      <h2 className="text-2xl font-bold mb-4 text-center">Talk to {characterName}</h2>
-
-      <div className="flex flex-col gap-3 items-center">
-        <div className="flex gap-3">
-          <button
-            onClick={startListening}
-            disabled={loading || isSpeaking}
-            className={`px-4 py-2 rounded font-semibold ${
-              listening ? "bg-red-500" : "bg-blue-600"
-            } text-white`}
-          >
-            {listening ? "Listening..." : "Start Talking"}
-          </button>
-
-          <button
-            onClick={stopListening}
-            disabled={!listening}
-            className="px-4 py-2 rounded font-semibold bg-gray-500 text-white"
-          >
-            Stop
-          </button>
-        </div>
-      </div>
-
-      {/* Chat Log */}
-      <div className="mt-5 bg-gray-100 p-3 rounded max-h-64 overflow-y-auto text-sm">
-        {chatLog.map((msg, idx) => (
-          <div key={idx} className="mb-2">
-            {msg}
+    <div className="fixed inset-0 w-full h-full bg-gradient-to-br from-blue-300 via-pink-200 to-yellow-100 flex flex-col z-0">
+      <Header />
+      <main className="relative flex-1 flex flex-col items-center justify-center pt-4 pb-8 px-2 z-10">
+        <div className="w-full max-w-3xl min-h-[70vh] bg-white/90 shadow-2xl rounded-3xl p-10 border-2 border-pink-200 flex flex-col justify-between">
+          <div className="flex items-center gap-3 mb-6">
+            <img
+              src={`/avatars/${characterName.charAt(0).toUpperCase() + characterName.slice(1)}.png`}
+              alt={characterName}
+              className="w-14 h-14 rounded-full border-2 border-blue-300 bg-white object-cover shadow"
+              onError={e => (e.currentTarget.style.display = 'none')}
+            />
+            <h2 className="text-3xl font-extrabold text-pink-600 drop-shadow-sm tracking-tight">
+              Talk to {characterName.charAt(0).toUpperCase() + characterName.slice(1)}
+            </h2>
           </div>
-        ))}
-      </div>
 
-      {/* Transcript Display & Submit Button BELOW chat log */}
-      {transcript && !listening && (
-        <div className="mt-4 text-center">
-          <div className="text-gray-600 italic mb-2">🗣️ You said: {transcript}</div>
-          <button
-            className="bg-green-600 text-white px-4 py-2 rounded"
-            onClick={handleSendToGPT}
-            disabled={loading || isSpeaking}
-          >
-            Submit
-          </button>
+          <div className="flex flex-col gap-4 items-center mb-4">
+            <div className="flex gap-3">
+              <button
+                onClick={startListening}
+                disabled={loading || isSpeaking}
+                className={`px-5 py-2 rounded-lg font-semibold shadow transition-colors duration-200 ${
+                  listening ? "bg-red-500 hover:bg-red-600" : "bg-blue-600 hover:bg-blue-700"
+                } text-white focus:outline-none focus:ring-2 focus:ring-pink-400`}
+              >
+                {listening ? "Listening..." : "Start Talking"}
+              </button>
+
+              <button
+                onClick={stopListening}
+                disabled={!listening}
+                className="px-5 py-2 rounded-lg font-semibold bg-gray-400 hover:bg-gray-500 text-white shadow focus:outline-none focus:ring-2 focus:ring-blue-300"
+              >
+                Stop
+              </button>
+            </div>
+          </div>
+
+          {/* Chat Log */}
+          <div className="mt-2 bg-gray-50 p-6 rounded-xl max-h-[45vh] min-h-[200px] overflow-y-auto text-lg border border-gray-200 shadow-inner">
+            {chatLog.length === 0 ? (
+              <div className="text-gray-400 text-center">No conversation yet. Start talking!</div>
+            ) : (
+              chatLog.map((msg, idx) => (
+                <div key={idx} className="mb-2 whitespace-pre-line">
+                  {msg}
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* Transcript Display & Submit Button BELOW chat log */}
+          {transcript && !listening && (
+            <div className="mt-6 text-center">
+              <div className="text-gray-600 italic mb-2">🗣️ You said: {transcript}</div>
+              <button
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-bold shadow focus:outline-none focus:ring-2 focus:ring-green-300"
+                onClick={handleSendToGPT}
+                disabled={loading || isSpeaking}
+              >
+                Submit
+              </button>
+            </div>
+          )}
         </div>
-      )}
+      </main>
     </div>
   );
 };
