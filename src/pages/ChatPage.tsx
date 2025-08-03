@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import type { Character } from '../characterService';
 import { generateCharacterResponse } from '../characterService';
 import { chatService } from '../chatService';
@@ -304,6 +305,21 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
   const { characterId } = useParams();
   const location = useLocation();
 
+  // Speech recognition hooks
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  // Update message input with transcript in real-time
+  useEffect(() => {
+    if (transcript) {
+      setNewMessage(transcript);
+    }
+  }, [transcript]);
+
   useEffect(() => {
     // Get character from location state or fetch by ID
     if (location.state?.character) {
@@ -426,6 +442,31 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
     navigate('/characterselect');
   };
 
+  // Speech recognition handlers
+  const handleMicClick = () => {
+    if (!browserSupportsSpeechRecognition) {
+      alert('Speech recognition is not supported in your browser. Please try using Chrome or Edge.');
+      return;
+    }
+
+    if (listening) {
+      // Stop listening
+      SpeechRecognition.stopListening();
+    } else {
+      // Start listening
+      resetTranscript();
+      setNewMessage(''); // Clear current message
+      SpeechRecognition.startListening({ 
+        continuous: true,
+        language: 'en-US'
+      });
+    }
+  };
+
+  const stopListening = () => {
+    SpeechRecognition.stopListening();
+  };
+
   if (!character) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 p-4 font-['O4B3O'] flex items-center justify-center">
@@ -470,6 +511,20 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
 
           {/* Right Panel - Chat Area */}
           <div className="flex-1 flex flex-col bg-white">
+            {/* Speech Recognition Status */}
+            {listening && (
+              <div className="bg-red-50 border-b border-red-200 px-4 py-2">
+                <div className="flex items-center justify-center space-x-2 text-red-600">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                  </div>
+                  <span className="text-sm font-medium">🎤 Listening... Click mic again to stop</span>
+                </div>
+              </div>
+            )}
+            
             {/* Messages Area */}
             <div className="flex-1 bg-white p-3 overflow-y-auto">
               <div className="border-2 border-purple-400 bg-white h-full p-3 overflow-y-auto rounded-lg shadow-inner">
@@ -518,11 +573,34 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
             {/* Horizontal Formatting Toolbar */}
             <div className="bg-white border-t border-gray-200 px-4 py-2">
               <div className="flex items-center justify-center space-x-3">
-                {/* Mic button */}
-                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                {/* Mic button with speech recognition */}
+                <button 
+                  className={`w-7 h-7 flex items-center justify-center rounded transition-colors ${
+                    listening 
+                      ? 'bg-red-100 hover:bg-red-200' 
+                      : 'hover:bg-gray-100'
+                  }`}
+                  onClick={handleMicClick}
+                  title={listening ? 'Stop recording' : 'Start voice input'}
+                >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" fill="#4F46E5"/>
-                    <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" stroke="#4F46E5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path 
+                      d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" 
+                      fill={listening ? "#EF4444" : "#4F46E5"}
+                    />
+                    <path 
+                      d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" 
+                      stroke={listening ? "#EF4444" : "#4F46E5"} 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                    {listening && (
+                      <circle cx="12" cy="12" r="10" fill="none" stroke="#EF4444" strokeWidth="1" opacity="0.3">
+                        <animate attributeName="r" values="8;12;8" dur="1.5s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.8;0.1;0.8" dur="1.5s" repeatCount="indefinite"/>
+                      </circle>
+                    )}
                   </svg>
                 </button>
 
@@ -610,16 +688,37 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
 
             {/* Message Input */}
             <div className="bg-white border-t-2 border-purple-600 p-3 flex space-x-2">
-              <input
-                type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Type your message..."
-                className="flex-1 px-3 py-2 border-2 border-purple-400 bg-white focus:outline-none focus:border-purple-600 text-purple-800 font-bold rounded-lg shadow-sm"
-              />
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder={listening ? "🎤 Listening... Speak now!" : "Type your message..."}
+                  className={`w-full px-3 py-2 border-2 bg-white focus:outline-none text-purple-800 font-bold rounded-lg shadow-sm ${
+                    listening 
+                      ? 'border-red-400 focus:border-red-600' 
+                      : 'border-purple-400 focus:border-purple-600'
+                  }`}
+                  disabled={listening}
+                />
+                {listening && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <div className="flex space-x-1">
+                      <div className="w-1 h-4 bg-red-500 rounded animate-pulse"></div>
+                      <div className="w-1 h-4 bg-red-500 rounded animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                      <div className="w-1 h-4 bg-red-500 rounded animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                    </div>
+                  </div>
+                )}
+              </div>
               <button
-                onClick={sendMessage}
+                onClick={() => {
+                  if (listening) {
+                    stopListening();
+                  }
+                  sendMessage();
+                }}
                 disabled={!newMessage.trim()}
                 className="bg-gradient-to-r from-purple-500 to-purple-600 border-2 border-purple-700 text-white px-5 py-2 font-bold hover:from-purple-400 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all rounded-lg shadow-lg"
               >
