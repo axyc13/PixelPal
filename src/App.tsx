@@ -11,6 +11,7 @@ import { signInWithGoogleAndStoreUser } from './authService';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { CharacterSelectPage } from './pages/CharacterSelectPage';
 import Header from './components/Header';
+import TestMic from './components/TestMic';
 import { ChatPage } from './pages/ChatPage';
 
 function LandingPage({ user, setUser }: { user: any; setUser: (user: any) => void }) {
@@ -156,6 +157,7 @@ function App() {
         <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
         <Route path="/characterselect" element={<CharacterSelectPage user={user} />} />
         <Route path="/chat/:characterId" element={<ChatPage user={user} />} />
+        <Route path="/testMic" element={<TestMic />} />
       </Routes>
     </>
   );
