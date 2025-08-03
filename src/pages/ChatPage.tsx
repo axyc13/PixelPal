@@ -1,3 +1,36 @@
+import { CHARACTERS_DATABASE } from '../characterService';
+// PNG images for sidebar reveal
+import TinkerbellImg from '../images/Tinker_Bell_(Disney_character).png';
+import SpongeBobImg from '../images/SpongeBob_SquarePants_character.png';
+import MickeyMouseImg from '../images/MickeyMouse.webp';
+import ScoobyDooImg from '../images/a1b3db49a235f7991f0ce3525d39253a.png';
+import SimbaaImg from '../images/Simba-PNG-Image-Background.png';
+import DoraImg from '../images/Dora_photo1.webp';
+
+const characterImageMap: Record<string, string> = {
+  tinkerbell: TinkerbellImg,
+  spongebob: SpongeBobImg,
+  mickey: MickeyMouseImg,
+  scooby: ScoobyDooImg,
+  simba: SimbaaImg,
+  dora: DoraImg,
+};
+// Avatar imports for sidebar
+import Tinkerbell from "../avatars/Tinkerbell";
+import SpongeBob from "../avatars/SpongeBob";
+import MickeyMouse from "../avatars/MickeyMouse";
+import ScoobyDoo from "../avatars/ScoobyDoo";
+import Simbaa from "../avatars/Simbaa";
+import DoraAvatar from "../avatars/DoraAvatar";
+// Map character id to avatar component
+const avatarMap: Record<string, React.FC> = {
+  tinkerbell: Tinkerbell,
+  spongebob: SpongeBob,
+  mickey: MickeyMouse,
+  scooby: ScoobyDoo,
+  simba: Simbaa,
+  dora: DoraAvatar,
+};
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import type { Character } from '../characterService';
@@ -305,25 +338,28 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Get character from location state or fetch by ID
+    // Get character from CHARACTERS_DATABASE by id
     if (location.state?.character) {
       setCharacter(location.state.character);
     } else if (characterId) {
-      // You might need to implement getCharacterById in characterService
-      // For now, we'll use a placeholder
-      setCharacter({
-        id: characterId,
-        name: 'Character',
-        show: 'Show',
-        year: '2000',
-        personality: 'Friendly',
-        catchphrases: ['Hello!', 'How are you?'],
-        voiceDescription: 'Cheerful',
-        background: 'A fun character',
-        relationships: ['Everyone\'s friend'],
-        alternateEndings: ['Happy ending'],
-        prompt: 'You are a friendly character who loves to chat!'
-      });
+      const found = CHARACTERS_DATABASE.find((c: any) => c.id === characterId);
+      if (found) {
+        setCharacter(found);
+      } else {
+        setCharacter({
+          id: characterId,
+          name: characterId.charAt(0).toUpperCase() + characterId.slice(1),
+          show: 'Show',
+          year: '2000',
+          personality: 'Friendly',
+          catchphrases: ['Hello!', 'How are you?'],
+          voiceDescription: 'Cheerful',
+          background: 'A fun character',
+          relationships: ['Everyone\'s friend'],
+          alternateEndings: ['Happy ending'],
+          prompt: 'You are a friendly character who loves to chat!'
+        });
+      }
     }
   }, [characterId, location.state]);
 
@@ -443,7 +479,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
             <div className="w-6 h-6 bg-yellow-300 rounded-sm flex items-center justify-center">
               <span className="text-black text-xs font-bold">💬</span>
             </div>
-            <span className="font-bold text-lg">Chatroom</span>
+            <span className="font-bold font-04b text-lg">Chatroom</span>
           </div>
           <div className="flex items-center gap-1">
             <img src={minimise} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="minimise" />
@@ -454,16 +490,20 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
 
         {/* Main Content */}
         <div className="flex h-full">
-          {/* Left Panel - Character Info */}
-          <div className="w-64 bg-gradient-to-br from-pink-50 to-yellow-50 border-r-2 border-purple-600 p-4">
-            <div className="text-center">
-              <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-400 to-purple-600 rounded-none border-2 border-purple-700 flex items-center justify-center text-2xl mb-4">
-                {character.name.charAt(0)}
+          {/* Left Panel - Character PNG Image and Name */}
+          <div className="w-64 flex flex-col items-center justify-center border-r-2 border-purple-600 p-4">
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <div className="w-48 h-48 flex items-center justify-center">
+                {characterImageMap[character.id] && (
+                  <img
+                    src={characterImageMap[character.id]}
+                    alt={character.name}
+                    className="object-contain w-full h-full drop-shadow-lg"
+                  />
+                )}
               </div>
-              <h3 className="text-lg font-bold text-purple-800 mb-2">{character.name}</h3>
-              <p className="text-sm text-gray-600 mb-4">{character.show}</p>
-              <div className="bg-white border-2 border-purple-400 p-3 rounded-none">
-                <p className="text-sm text-gray-700 font-bold">"{character.catchphrases[0]}"</p>
+              <div className="mt-4 text-2xl font-04b text-purple-800 text-center">
+                {character.name}
               </div>
             </div>
           </div>

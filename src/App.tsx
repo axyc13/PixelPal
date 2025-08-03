@@ -13,6 +13,7 @@ import  CharacterSelectPage from './pages/CharacterSelectPage';
 import Header from './components/Header';
 import TestMic from './components/TestMic';
 import { ChatPage } from './pages/ChatPage';
+import DonePage from './pages/DonePage';
 
 function LandingPage({ user, setUser }: { user: any; setUser: (user: any) => void }) {
   const [loading, setLoading] = useState(false);
@@ -34,6 +35,8 @@ function LandingPage({ user, setUser }: { user: any; setUser: (user: any) => voi
   };
 
   return (
+    <>
+      <Header />
       <div className="flex flex-col items-center justify-center h-screen bg-linear-to-b from-[#EBE9D2] to-[#F8C2FF]">
         <div className="relative inline-block">
           <img
@@ -144,6 +147,7 @@ function LandingPage({ user, setUser }: { user: any; setUser: (user: any) => voi
         )}
         {error && <div className="text-red-600 mt-4">{error}</div>}
       </div>
+      </>
   );
 }
 
@@ -152,16 +156,15 @@ function App() {
 
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
         <Route path="/characterselect" element={<CharacterSelectPage />} />
         <Route path="/chat/:characterId" element={<ChatPage user={user} />} />
         <Route path="/testMic" element={<TestMic />} />
+        <Route path="/done" element={<DonePage />} />
       </Routes>
     </>
   );
 }
 
 export default App;
-
