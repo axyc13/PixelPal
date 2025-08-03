@@ -7,7 +7,7 @@ import speech from './assets/speech.png';
 import trail from './assets/trail.png';
 import { signInWithGoogleAndStoreUser } from './authService';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { CharacterSelectPage } from './pages/CharacterSelectPage';
+import  CharacterSelectPage  from './pages/CharacterSelectPage';
 import Header from './components/Header';
 import { ChatPage } from './pages/ChatPage';
 
@@ -115,7 +115,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
-        <Route path="/characterselect" element={<CharacterSelectPage user={user} />} />
+        <Route path="/characterselect" element={<CharacterSelectPage />} />
         <Route path="/chat/:characterId" element={<ChatPage user={user} />} />
       </Routes>
     </>
