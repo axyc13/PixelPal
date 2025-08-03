@@ -10,6 +10,7 @@ import clouds from "../assets/clouds.png";
 import "../global.css";
 import AddCharacter from "../avatars/AddCharacter";
 import Header from "../components/Header";
+import { signOutUser } from '../authService';
 
 const characters = [
   { id: "tinkerbell", name: "Tinkerbell", Component: Tinkerbell },
@@ -20,7 +21,11 @@ const characters = [
   { id: "dora", name: "Dora", Component: DoraAvatar },
 ];
 
-export default function CharacterSelectPage() {
+type CharacterSelectPageProps = {
+  setUser?: (user: any) => void;
+};
+
+export default function CharacterSelectPage({ setUser }: CharacterSelectPageProps) {
   const navigate = useNavigate();
 
   const handleCharacterSelect = (characterId: string) => {
@@ -29,9 +34,37 @@ export default function CharacterSelectPage() {
       navigate(`/chat/${characterId}`, { state: { character } });
     }
   };
+
+  // Proper logout handler using Firebase Auth
+  const handleLogout = async () => {
+    try {
+      console.log('Attempting to sign out user...');
+      await signOutUser();
+      console.log('Sign outUser finished.');
+      localStorage.clear();
+      sessionStorage.clear();
+      if (typeof setUser === 'function') {
+        setUser(null);
+      } else {
+        console.warn('setUser prop not provided to CharacterSelectPage. User state will not be cleared.');
+      }
+      navigate('/');
+    } catch (err) {
+      console.error('Logout failed:', err);
+      alert('Logout failed. Please try again.');
+    }
+  };
+
   return (
     <>
     <Header />
+    <button
+      className="absolute top-1 right-30 z-50 bg-white text-purple-700 font-bold px-3 py-1 rounded hover:bg-purple-100 border border-purple-300 transition-colors mr-2 shadow-lg"
+      onClick={handleLogout}
+      title="Logout"
+    >
+      Logout
+    </button>
     <div className="min-h-screen bg-gradient-to-b from-[#EFE9D1] to-[#ECD3E8] flex flex-col items-center py-10 overflow-hidden">
       {/* Title */}
       <h1 className="text-4xl md:text-5xl font-bold text-[#3B23BB] font-04b pt-3 tracking-wide text-center">

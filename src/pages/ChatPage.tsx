@@ -32,6 +32,8 @@ const avatarMap: Record<string, React.FC> = {
   dora: DoraAvatar,
 };
 import { useState, useRef, useEffect } from 'react';
+import { signOutUser } from '../authService';
+
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import type { Character } from '../characterService';
@@ -324,9 +326,10 @@ function getCharacterWelcomeMessages(character: Character) {
 
 interface ChatPageProps {
   user: any;
+  setUser: (user: any) => void;
 }
 
-export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
+export const ChatPage: React.FC<ChatPageProps> = ({ user: _user, setUser }) => {
   const [messages, setMessages] = useState<Array<{ id: string; sender: string; text: string; timestamp: Date }>>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -511,6 +514,22 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
     );
   }
 
+  // Proper logout handler using Firebase Auth
+  const handleLogout = async () => {
+    try {
+      console.log('Attempting to sign out user...');
+      await signOutUser();
+      console.log('Sign outUser finished.');
+      localStorage.clear();
+      sessionStorage.clear();
+      setUser(null);
+      navigate('/');
+    } catch (err) {
+      console.error('Logout failed:', err);
+      alert('Logout failed. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 p-4 font-['O4B3O'] flex items-center justify-center">
       <div className="bg-white border-2 border-purple-600 shadow-2xl w-full max-w-6xl h-[90vh] rounded-lg overflow-hidden">
@@ -523,6 +542,13 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user }) => {
             <span className="font-bold text-lg">Chatroom</span>
           </div>
           <div className="flex items-center gap-1">
+            <button
+              className="bg-white text-purple-700 font-bold px-3 py-1 rounded hover:bg-purple-100 border border-purple-300 transition-colors mr-2"
+              onClick={handleLogout}
+              title="Logout"
+            >
+              Logout
+            </button>
             <img src={minimise} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="minimise" />
             <img src={full} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="full" />
             <img src={exit} className="w-8 h-8 cursor-pointer hover:opacity-80 transition-opacity" alt="back" onClick={handleClose} />

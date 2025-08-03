@@ -158,8 +158,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
-        <Route path="/characterselect" element={<CharacterSelectPage />} />
-        <Route path="/chat/:characterId" element={<ChatPage user={user} />} />
+        <Route path="/characterselect" element={<CharacterSelectPage setUser={setUser} />} />
+        <Route path="/chat/:characterId" element={<ChatPage user={user} setUser={setUser} />} />
         <Route path="/testMic" element={<TestMic />} />
         <Route path="/done" element={<DonePage />} />
       </Routes>
