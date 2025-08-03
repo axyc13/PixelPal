@@ -481,6 +481,10 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user, setUser }) => {
     navigate('/characterselect');
   };
 
+  const handleSpeak = () => {
+    navigate(`/speak/${character?.id}`)
+  }
+
   // Speech recognition handlers
   const handleMicClick = () => {
     if (!browserSupportsSpeechRecognition) {
@@ -743,7 +747,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({ user: _user, setUser }) => {
                 <div className="h-5 w-px bg-gray-300"></div>
 
                 {/* Chat button */}
-                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors">
+                <button className="w-7 h-7 flex items-center justify-center hover:bg-gray-100 rounded transition-colors" onClick={handleSpeak}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="#FF797A"/>
                     <path d="M8 10h8M8 14h4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>

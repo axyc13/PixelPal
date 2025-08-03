@@ -1,13 +1,13 @@
+// src/pages/ChatWithCharacterPage.tsx
 import { useParams } from "react-router-dom";
 import CharacterVoiceChat from "../components/CharacterVoiceChat";
 
-
 const ChatWithCharacterPage = () => {
-  const { character } = useParams();
+  const { characterId } = useParams();
 
   return (
     <div className="p-4">
-      <CharacterVoiceChat character={character} />
+      <CharacterVoiceChat character={characterId} />
     </div>
   );
 };
