@@ -1,5 +1,6 @@
 // Tinkerbell.tsx
-import TinkerBell from "../images/Tinker_Bell_(Disney_character).png";
+import TinkerBell from "../images/fileTinkerbell.png";
+import TinkerbellHover from "../images/revealTinkerbell.png";
 
 const Tinkerbell = () => {
   return (
@@ -7,7 +8,12 @@ const Tinkerbell = () => {
       <img
         src={TinkerBell}
         alt="Tinker Bell"
-        className="h-4/5 w-auto object-contain"
+        className="object-contain"
+      />
+      <img
+        src={TinkerbellHover}
+        alt="Tinkerbell Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
     </div>
   );

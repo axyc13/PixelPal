@@ -1,5 +1,6 @@
 // MickeyMouse.tsx
-import MickyImg from "../images/MickeyMouse.webp";
+import MickyImg from "../images/fileMickeyMouse.png";
+import MickeyHover from "../images/revealMickeyMouse.png";
 
 const MickeyMouse = () => {
   return (
@@ -7,7 +8,12 @@ const MickeyMouse = () => {
       <img
         src={MickyImg}
         alt="Mickey Mouse"
-        className="h-4/5 w-auto object-contain"
+        className="object-contain"
+      />
+      <img
+        src={MickeyHover}
+        alt="Mickey Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
     </div>
   );

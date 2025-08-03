@@ -1,5 +1,6 @@
 // Simbaa.tsx
-import SimbaImg from "../images/Simba-PNG-Image-Background.png";
+import SimbaImg from "../images/fileSimba.png";
+import SimbaHover from "../images/revealSimba.png";
 
 const Simbaa = () => {
   return (
@@ -7,7 +8,12 @@ const Simbaa = () => {
       <img
         src={SimbaImg}
         alt="Simba"
-        className="h-4/5 w-auto object-contain"
+        className="object-contain"
+      />
+      <img
+        src={SimbaHover}
+        alt="Simba Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
     </div>
   );
