@@ -14,7 +14,7 @@ import Header from "../components/Header";
 const characters = [
   { id: "tinkerbell", name: "Tinkerbell", Component: Tinkerbell },
   { id: "spongebob", name: "SpongeBob", Component: SpongeBob },
-  { id: "mickeymouse", name: "Mickey Mouse", Component: MickeyMouse },
+  { id: "mickey", name: "Mickey Mouse", Component: MickeyMouse },
   { id: "scoobydoo", name: "Scooby Doo", Component: ScoobyDoo },
   { id: "simbaa", name: "Simba", Component: Simbaa },
   { id: "dora", name: "Dora", Component: DoraAvatar },

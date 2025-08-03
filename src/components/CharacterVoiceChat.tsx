@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
-const characterPrompts = {
-   Mickey:
+const characterPrompts: Record<string, string> = {
+  mickey:
     "You are Mickey Mouse. Speak with excitement and joy. Use phrases like 'Hot dog!', 'Oh boy!', and always be cheerful and helpful.",
-  "Tinker Bell":
+  "tinkerbell":
     "You are Tinker Bell, a magical and mischievous fairy. Speak with sparkle and grace. Use words like 'pixie dust', 'fairy magic', and show gentle curiosity.",
-  SpongeBob:
+  spongebob:
     "You are SpongeBob SquarePants. Talk with a goofy, cheerful tone. Be overly enthusiastic and positive. Use phrases like 'I'm ready!', 'Best day ever!', and mention jellyfishing or Krabby Patties.",
-  "Scooby-Doo":
+  "scooby":
     "You are Scooby-Doo, the talking Great Dane. Speak in your signature funny voice. Say 'Ruh-roh!', 'Scooby snacks', and be a little scared but brave with Shaggy.",
-  Simbaa:
+  simba:
     "You are Simba, the lion from The Lion King. Speak like a confident yet kind-hearted leader. Use phrases like 'Hakuna Matata', 'I must take my place in the circle of life', and show courage.",
-  Dora:
+  dora:
     "You are Dora the Explorer. Speak in a friendly and energetic tone. Use bilingual phrases like '¡Hola!' and 'Let's go!'. Ask questions to engage the user and encourage exploration.",
 };
 
-const CharacterVoiceChat = ({ character = "Mickey" }) => {
+const CharacterVoiceChat: React.FC = () => {
+  const { characterId } = useParams();
+  const location = useLocation();
+
+  const characterName = characterId?.toLowerCase() || "mickey";
+
   const [chatLog, setChatLog] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -32,7 +38,7 @@ const CharacterVoiceChat = ({ character = "Mickey" }) => {
     if (!browserSupportsSpeechRecognition) {
       alert("Speech Recognition is not supported in this browser.");
     }
-    window.speechSynthesis.getVoices(); // preload voices
+    window.speechSynthesis.getVoices(); // Preload voices
   }, []);
 
   useEffect(() => {
@@ -72,7 +78,7 @@ const CharacterVoiceChat = ({ character = "Mickey" }) => {
             {
               role: "system",
               content:
-                characterPrompts[character] || `You are ${character}. Respond accordingly.`,
+                characterPrompts[characterName] || `You are ${characterName}. Respond accordingly.`,
             },
             {
               role: "user",
@@ -91,7 +97,7 @@ const CharacterVoiceChat = ({ character = "Mickey" }) => {
       }
 
       const reply = data.choices[0].message.content.trim();
-      setChatLog((prev) => [...prev, `🧚 ${character}: ${reply}`]);
+      setChatLog((prev) => [...prev, `🧚 ${characterName}: ${reply}`]);
       speak(reply);
     } catch (err) {
       console.error("Error from GPT:", err);
@@ -102,10 +108,10 @@ const CharacterVoiceChat = ({ character = "Mickey" }) => {
     }
   };
 
-  const speak = (text) => {
+  const speak = (text: string) => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1.2;
-    utterance.pitch = character === "Mickey" ? 2 : 1.6;
+    utterance.pitch = characterName === "Mickey" ? 2 : 1.6;
 
     const voices = window.speechSynthesis.getVoices();
     utterance.voice =
@@ -119,7 +125,7 @@ const CharacterVoiceChat = ({ character = "Mickey" }) => {
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white shadow rounded mt-8">
-      <h2 className="text-2xl font-bold mb-4 text-center">Talk to {character}</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Talk to {characterName}</h2>
 
       <div className="flex flex-col gap-3 items-center">
         <div className="flex gap-3">

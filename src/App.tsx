@@ -14,6 +14,7 @@ import Header from './components/Header';
 import TestMic from './components/TestMic';
 import { ChatPage } from './pages/ChatPage';
 import DonePage from './pages/DonePage';
+import ChatWithCharacterPage from './pages/ChatWithCharacterPage';
 
 function LandingPage({ user, setUser }: { user: any; setUser: (user: any) => void }) {
   const [loading, setLoading] = useState(false);
@@ -161,6 +162,7 @@ function App() {
         <Route path="/characterselect" element={<CharacterSelectPage />} />
         <Route path="/chat/:characterId" element={<ChatPage user={user} />} />
         <Route path="/testMic" element={<TestMic />} />
+        <Route path="/speak/:characterId" element={<ChatWithCharacterPage />} />
         <Route path="/done" element={<DonePage />} />
       </Routes>
     </>
