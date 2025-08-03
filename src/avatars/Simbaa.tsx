@@ -1,16 +1,16 @@
-import SimbaImg from "../images/Simba-PNG-Image-Background.png"
+// Simbaa.tsx
+import SimbaImg from "../images/Simba-PNG-Image-Background.png";
 
 const Simbaa = () => {
-   return (
-    <div className="flex flex-col items-center space-y-2">
+  return (
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <img
         src={SimbaImg}
-        alt="Dora the Explorer"
-        className="w-64"
+        alt="Simba"
+        className="h-4/5 w-auto object-contain"
       />
-      <p className="text-lg font-semibold text-gray-700">Simba</p>
     </div>
   );
-}
+};
 
-export default Simbaa
+export default Simbaa;

@@ -1,16 +1,16 @@
-import SpongeBobs from "../images/SpongeBob_SquarePants_character.png"
+// SpongeBob.tsx
+import SpongeBobs from "../images/SpongeBob_SquarePants_character.png";
 
 const SpongeBob = () => {
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <img
         src={SpongeBobs}
-        alt="Dora the Explorer"
-        className="w-64"
+        alt="SpongeBob SquarePants"
+        className="h-4/5 w-auto object-contain"
       />
-      <p className="text-lg font-semibold text-gray-700">SpongeBob SquarePants</p>
     </div>
   );
-}
+};
 
-export default SpongeBob
+export default SpongeBob;
