@@ -1,4 +1,5 @@
-import DoraImage from "../images/Dora_photo1.webp";
+import DoraImage from "../images/fileDora.png";
+import DoraHover from "../images/revealDora.png";
 
 const DoraAvatar = () => {
   return (
@@ -6,7 +7,12 @@ const DoraAvatar = () => {
       <img
         src={DoraImage}
         alt="Dora the Explorer"
-        className="h-4/5 w-auto object-contain"
+        className="object-contain"
+      /> 
+      <img
+        src={DoraHover}
+        alt="Dora Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
     </div>
   );
