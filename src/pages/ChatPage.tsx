@@ -10,9 +10,9 @@ import DoraImg from '../images/Dora_photo1.webp';
 const characterImageMap: Record<string, string> = {
   tinkerbell: TinkerbellImg,
   spongebob: SpongeBobImg,
-  mickey: MickeyMouseImg,
-  scooby: ScoobyDooImg,
-  simba: SimbaaImg,
+  mickeymouse: MickeyMouseImg,
+  scoobydoo: ScoobyDooImg,
+  simbaa: SimbaaImg,
   dora: DoraImg,
 };
 // Avatar imports for sidebar
