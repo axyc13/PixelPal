@@ -8,7 +8,6 @@ import cursor from './assets/cursor.png';
 import speech from './assets/speech.png';
 import trail from './assets/trail.png';
 import { signInWithGoogleAndStoreUser } from './authService';
-import ChatRoom from "./pages/ChatRoom";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import  CharacterSelectPage from './pages/CharacterSelectPage';
 import Header from './components/Header';
@@ -157,7 +156,6 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
         <Route path="/characterselect" element={<CharacterSelectPage />} />
-        <Route path="/chatroom" element={<ChatRoom />} />
         <Route path="/chat/:characterId" element={<ChatPage user={user} />} />
         <Route path="/testMic" element={<TestMic />} />
       </Routes>
