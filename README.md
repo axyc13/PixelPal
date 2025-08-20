@@ -34,8 +34,7 @@ Linting: ESLint + TypeScript + React rules
 🚀 Getting Started
 1. Clone the repo
 ```js
-git clone https://github.com/your-username/AICartoon.git
-cd AICartoon
+https://github.com/tarakpatel1000/aicartoonfriend.git
 ```
 
 3. Install dependencies
