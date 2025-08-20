@@ -37,12 +37,12 @@ Linting: ESLint + TypeScript + React rules
 https://github.com/tarakpatel1000/aicartoonfriend.git
 ```
 
-3. Install dependencies
+2. Install dependencies
 ```js
 npm install
 ```
 
-5. Start the dev server
+3. Start the dev server
 ```js
 npm run dev
 ```
