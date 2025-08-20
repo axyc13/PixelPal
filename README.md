@@ -1,69 +1,52 @@
-# React + TypeScript + Vite
+🎨 AICartoon
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AICartoon is a web app that brings your favorite cartoon characters to life using AI.
+You can chat or talk with AI-powered characters in real time, powered by speech recognition and modern AI models.
 
-Currently, two official plugins are available:
+Built with React + TypeScript + Vite for speed and developer experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
 
-## Expanding the ESLint configuration
+🎭 Choose and interact with different cartoon characters
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🎤 Voice chat powered by react-speech-recognition
 
+💬 Text chat with AI responses
+
+🔐 Google Sign-In authentication
+
+⚡ Fast builds & hot reload with Vite
+
+🎨 Clean and responsive UI with Tailwind CSS
+
+🛠️ Tech Stack
+
+Frontend: React, TypeScript, Vite
+
+AI Integration: OpenRouter API, Speech Recognition
+
+Styling: Tailwind CSS
+
+State Management: Redux Toolkit
+
+Linting: ESLint + TypeScript + React rules
+
+🚀 Getting Started
+1. Clone the repo
 ```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+git clone https://github.com/your-username/AICartoon.git
+cd AICartoon
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
+3. Install dependencies
 ```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+npm install
 ```
+
+5. Start the dev server
+```js
+npm run dev
+```
+
+
+The app will be available at http://localhost:5173
