@@ -1,16 +1,22 @@
-import MickyImg from "../images/MickeyMouse.webp"
+// MickeyMouse.tsx
+import MickyImg from "../images/fileMickeyMouse.png";
+import MickeyHover from "../images/revealMickeyMouse.png";
 
 const MickeyMouse = () => {
- return (
-    <div className="flex flex-col items-center space-y-2">
+  return (
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <img
         src={MickyImg}
-        alt="Dora the Explorer"
-        className="w-64 bg-transparent"
+        alt="Mickey Mouse"
+        className="object-contain"
       />
-      <p className="text-lg font-semibold text-gray-700">Micky Mouse</p>
+      <img
+        src={MickeyHover}
+        alt="Mickey Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
     </div>
   );
-}
+};
 
-export default MickeyMouse
+export default MickeyMouse;

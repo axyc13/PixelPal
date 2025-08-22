@@ -1,16 +1,22 @@
-import SimbaImg from "../images/Simba-PNG-Image-Background.png"
+// Simbaa.tsx
+import SimbaImg from "../images/fileSimba.png";
+import SimbaHover from "../images/revealSimba.png";
 
 const Simbaa = () => {
-   return (
-    <div className="flex flex-col items-center space-y-2">
+  return (
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <img
         src={SimbaImg}
-        alt="Dora the Explorer"
-        className="w-64"
+        alt="Simba"
+        className="object-contain"
       />
-      <p className="text-lg font-semibold text-gray-700">Simba</p>
+      <img
+        src={SimbaHover}
+        alt="Simba Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
     </div>
   );
-}
+};
 
-export default Simbaa
+export default Simbaa;

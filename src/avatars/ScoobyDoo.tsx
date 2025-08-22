@@ -1,15 +1,22 @@
-import ScoobyImg from "../images/a1b3db49a235f7991f0ce3525d39253a.png"
+// ScoobyDoo.tsx
+import ScoobyImg from "../images/fileScooby.png";
+import ScoobyHover from "../images/revealScooby.png";
+
 const ScoobyDoo = () => {
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <img
         src={ScoobyImg}
-        alt="Dora the Explorer"
-        className="w-64 bg-transparent"
+        alt="Scooby Doo"
+        className="object-contain"
       />
-      <p className="text-lg font-semibold text-gray-700">Scooby Dooby</p>
+      <img
+        src={ScoobyHover}
+        alt="Scooby Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
     </div>
   );
-}
+};
 
-export default ScoobyDoo
+export default ScoobyDoo;

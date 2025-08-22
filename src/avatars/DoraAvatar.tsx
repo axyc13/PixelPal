@@ -1,13 +1,19 @@
-import DoraImage from "../images/Dora_photo1.webp";
+import DoraImage from "../images/fileDora.png";
+import DoraHover from "../images/revealDora.png";
+
 const DoraAvatar = () => {
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="h-full w-full flex items-center justify-center">
       <img
         src={DoraImage}
         alt="Dora the Explorer"
-        className="w-64"
+        className="object-contain"
+      /> 
+      <img
+        src={DoraHover}
+        alt="Dora Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
-      <p className="text-lg font-semibold text-gray-700">Dora the Explorer</p>
     </div>
   );
 };
