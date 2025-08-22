@@ -1,9 +1,113 @@
-export default function CharacterSelectPage() {
+import { useNavigate } from "react-router-dom";
+import { CHARACTERS_DATABASE } from '../characterService';
+import Tinkerbell from "../avatars/Tinkerbell";
+import SpongeBob from "../avatars/SpongeBob";
+import MickeyMouse from "../avatars/MickeyMouse";
+import ScoobyDoo from "../avatars/ScoobyDoo";
+import Simbaa from "../avatars/Simbaa";
+import DoraAvatar from "../avatars/DoraAvatar";
+import clouds from "../assets/clouds.png";
+import "../global.css";
+import AddCharacter from "../avatars/AddCharacter";
+import Header from "../components/Header";
+import { signOutUser } from '../authService';
+
+const characters = [
+  { id: "tinkerbell", name: "Tinkerbell", Component: Tinkerbell },
+  { id: "spongebob", name: "SpongeBob", Component: SpongeBob },
+  { id: "mickey", name: "Mickey Mouse", Component: MickeyMouse },
+  { id: "scoobydoo", name: "Scooby Doo", Component: ScoobyDoo },
+  { id: "simbaa", name: "Simba", Component: Simbaa },
+  { id: "dora", name: "Dora", Component: DoraAvatar },
+];
+
+type CharacterSelectPageProps = {
+  setUser?: (user: any) => void;
+};
+
+export default function CharacterSelectPage({ setUser }: CharacterSelectPageProps) {
+  const navigate = useNavigate();
+
+  const handleCharacterSelect = (characterId: string) => {
+    const character = CHARACTERS_DATABASE.find(char => char.id === characterId);
+    if (character) {
+      navigate(`/chat/${characterId}`, { state: { character } });
+    }
+  };
+
+  // Proper logout handler using Firebase Auth
+  const handleLogout = async () => {
+    try {
+      console.log('Attempting to sign out user...');
+      await signOutUser();
+      console.log('Sign outUser finished.');
+      localStorage.clear();
+      sessionStorage.clear();
+      if (typeof setUser === 'function') {
+        setUser(null);
+      } else {
+        console.warn('setUser prop not provided to CharacterSelectPage. User state will not be cleared.');
+      }
+      navigate('/');
+    } catch (err) {
+      console.error('Logout failed:', err);
+      alert('Logout failed. Please try again.');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-gray-800">
-        You are on the Character Page!
+    <>
+    <Header />
+    <button
+      className="absolute top-1 right-30 z-50 bg-white text-purple-700 font-bold px-3 py-1 rounded hover:bg-purple-100 border border-purple-300 transition-colors mr-2 shadow-lg"
+      onClick={handleLogout}
+      title="Logout"
+    >
+      Logout
+    </button>
+    <div className="min-h-screen bg-gradient-to-b from-[#EFE9D1] to-[#ECD3E8] flex flex-col items-center py-10 overflow-hidden">
+      {/* Title */}
+      <h1 className="text-4xl md:text-5xl font-bold text-[#3B23BB] font-04b pt-3 tracking-wide text-center">
+        CHOOSE YOUR CHARACTER
       </h1>
+      <img src = {clouds} alt="Clouds" className="absolute top-40 right-0 w-80 h-80" />
+      <img src = {clouds} alt="Clouds" className="absolute top-40 left-0 w-80 h-80 scale-x-[-1]" />
+      {/* Grid of folders */}
+      <div className="grid grid-cols-3 pt-20 transform scale-150">
+        {characters.map((char) => (
+          <div
+            key={char.id}
+            className="group relative w-full h-full rounded-sm flex items-center justify-center hover:cursor-pointer"
+            onClick={() => navigate(`/chat/${char.id}`)}
+          >
+            {/* Character inside - silhouette by default */}
+            <div className="w-full h-full flex items-center justify-center p-4 overflow-hidden">
+              <div className="transition-transform duration-300 group-hover:scale-110 w-full h-full flex items-center justify-center">
+                <div className="max-w-[150px] max-h-[150px] w-full h-full">
+                  <char.Component />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+        {/* Empty column 1 */}
+        <div />
+
+        {/* Centered AddCharacter — must include .group wrapper like others */}
+        <div className="group relative w-full h-full rounded-sm flex items-center justify-center">
+          <div className="w-full h-full flex items-center justify-center p-4 overflow-hidden">
+            <div className="transition-transform duration-300 hover:cursor-pointer group-hover:scale-110 w-full h-full flex items-center justify-center">
+              <div className="max-w-[150px] max-h-[150px] w-full h-full">
+                <AddCharacter />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Empty column 3 */}
+        <div />
+      </div>
     </div>
+    </>
   );
 }

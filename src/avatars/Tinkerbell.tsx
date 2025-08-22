@@ -1,16 +1,22 @@
-import TinkerBell from "../images/Tinker_Bell_(Disney_character).png"
+// Tinkerbell.tsx
+import TinkerBell from "../images/fileTinkerbell.png";
+import TinkerbellHover from "../images/revealTinkerbell.png";
 
 const Tinkerbell = () => {
   return (
-    <div className="flex flex-col items-center space-y-2">
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <img
         src={TinkerBell}
-        alt="Dora the Explorer"
-        className="w-64 bg-transparent"
+        alt="Tinker Bell"
+        className="object-contain"
       />
-      <p className="text-lg font-semibold text-gray-700">Tinker Bell</p>
+      <img
+        src={TinkerbellHover}
+        alt="Tinkerbell Hover"
+        className="absolute top-0 left-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
     </div>
   );
-}
+};
 
-export default Tinkerbell
+export default Tinkerbell;

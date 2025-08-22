@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './global.css';
 import googleLogo from './assets/google.png';
+import blueStar from './assets/blueStar.png';
+import pinkStar from './assets/pinkStar.png';
+import heart from './assets/heart.png';
+import cursor from './assets/cursor.png';
+import speech from './assets/speech.png';
+import trail from './assets/trail.png';
 import { signInWithGoogleAndStoreUser } from './authService';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import CharacterSelectPage from "./pages/CharacterSelectPage";
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import  CharacterSelectPage from './pages/CharacterSelectPage';
 import Header from './components/Header';
+import TestMic from './components/TestMic';
+import { ChatPage } from './pages/ChatPage';
+import DonePage from './pages/DonePage';
+import ChatWithCharacterPage from './pages/ChatWithCharacterPage';
 
-function LandingPage() {
+function LandingPage({ user, setUser }: { user: any; setUser: (user: any) => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
 
   const handleGoogleSignIn = async () => {
@@ -27,35 +36,134 @@ function LandingPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#EBE9D2]">
-      <h1 className="text-9xl font-04b text-[#3B23BB] pb-25">
-        PIXELPAL
-      </h1>
-      {user ? (
-        <div className="text-center">
-          <img src={user.photoURL} alt="User" className="w-25 h-25 rounded-full mx-auto mb-2 border-2 border-black" />
-          <div className="text-lg font-bold bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5">Welcome, {user.displayName || user.email}!</div>
+    <>
+      <Header />
+      <div className="flex flex-col items-center justify-center h-screen bg-linear-to-b from-[#EBE9D2] to-[#F8C2FF]">
+        <div className="relative inline-block">
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute -top-3 -left-18 w-8 h-8"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute -top-2 -left-5 w-16 h-16"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute top-12 -right-21 w-10 h-10"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute -top-3 -right-25 w-8 h-8"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute -top-2 -right-13 w-16 h-16"
+          />
+          <img
+            src={pinkStar}
+            alt="Star"
+            className="absolute top-12 -left-15 w-10 h-10"
+          />
+          <img
+            src={heart}
+            alt="Star"
+            className="absolute -top-16 left-33 w-18 h-18"
+          />
+          <img src={blueStar} alt="Star" className="absolute -top-25 -left-40 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -top-35 left-6 w-6 h-6"/>
+          <img src={blueStar} alt="Star" className="absolute -top-40 left-15 w-4 h-4"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-2 left-3 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-6 left-13 w-5 h-5"/>
+          <img src={blueStar} alt="Star" className="absolute -top-20 right-13 w-5 h-5"/>
+          <img src={blueStar} alt="Star" className="absolute -top-28 right-20 w-7 h-7"/>
+          <img src={blueStar} alt="Star" className="absolute -top-50 -right-18 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-29 right-14 w-8 h-8"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-40 -right-15 w-7 h-7"/>
+          <img src={blueStar} alt="Star" className="absolute -bottom-17 -right-53 w-6 h-6"/>
+
+          <div className="absolute -top-40 -right-45">
+            <div className="relative w-45 h-25">
+              <img
+                src={speech}
+                alt="speech"
+                className="w-full h-full object-contain"
+              />
+              <p className="font-pixel absolute top-6 left-5.5 text-s">
+                talk to your favs
+              </p>
+            </div>
+          </div>
+          <h1 className="text-8xl font-04b text-[#3B23BB] pl-15 pb-20">
+            PIXELPAL
+          </h1>
+          <div className="absolute -bottom-42 -left-60">
+            <div className="relative w-58 h-25">
+              <img
+                src={speech}
+                alt="speech"
+                className="w-full h-full object-contain scale-x-[-1]"
+              />
+              <p className="font-pixel absolute top-5.5 left-7.5 text-m">
+                revisit your childhood!
+              </p>
+            </div>
+          </div>
+          <img
+            src={cursor}
+            alt="cursor"
+            className="absolute -bottom-20 -right-20 w-30 h-30"
+          />
+          <img
+            src={trail}
+            alt="trail"
+            className="absolute -bottom-62 -right-89 w-80 h-60"
+          />
         </div>
-      ) : (
-        <div className="bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5 hover:cursor-pointer">
-          <img src={googleLogo} className="w-6 h-6 inline mr-2" alt="Google Logo" />
-          <button className = "hover:cursor-pointer" onClick={handleGoogleSignIn} disabled={loading}>
-            {loading ? 'Signing In...' : 'Sign Up With Google'}
-          </button>
-        </div>
-      )}
-      {error && <div className="text-red-600 mt-4">{error}</div>}
-    </div>
+        {user ? (
+          <div className="text-center">
+            <img src={user.photoURL} 
+              alt="User" 
+              className="w-25 h-25 rounded-full mx-auto mb-2 border-2 border-black" 
+            />
+            <div className="text-lg font-bold bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5">
+              Welcome, {user.displayName || user.email}!
+            </div>
+          </div>
+        ) : (
+          <div className="bg-[#7B63FF] text-[#fff] font-pixel p-3 rounded border-2 border-black pr-5 pl-5 hover:cursor-pointer">
+            <img src={googleLogo} 
+              alt="Google Logo"
+              className="w-6 h-6 inline mr-2"
+            />
+            <button className = "hover:cursor-pointer" onClick={handleGoogleSignIn} disabled={loading}>
+              {loading ? 'Signing In...' : 'Sign Up With Google'}
+            </button>
+          </div>
+        )}
+        {error && <div className="text-red-600 mt-4">{error}</div>}
+      </div>
+      </>
   );
 }
 
 function App() {
+  const [user, setUser] = useState<any>(null);
+
   return (
     <>
-      <Header />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/characterselect" element={<CharacterSelectPage />} />
+        <Route path="/" element={<LandingPage user={user} setUser={setUser} />} />
+        <Route path="/characterselect" element={<CharacterSelectPage setUser={setUser} />} />
+        <Route path="/chat/:characterId" element={<ChatPage user={user} setUser={setUser} />} />
+        <Route path="/testMic" element={<TestMic />} />
+        <Route path="/speak/:characterId" element={<ChatWithCharacterPage />} />
+        <Route path="/done" element={<DonePage />} />
       </Routes>
     </>
   );
