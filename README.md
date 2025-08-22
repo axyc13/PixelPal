@@ -1,11 +1,12 @@
-🎨 AICartoon
+# 🎨 PixelPal
 
-AICartoon is a web app that brings your favorite cartoon characters to life using AI.
+PixelPal is a web app brought to life in the 2025 WDCC x SESA hackathon! 
+
+In just under 48 hours and with the theme of nostalgia, our team made a site that fulfils the childhood fantasy of being able to talk to your favourite characters! 
+
 You can chat or talk with AI-powered characters in real time, powered by speech recognition and modern AI models.
 
-Built with React + TypeScript + Vite for speed and developer experience.
-
-✨ Features
+## ✨ Features
 
 🎭 Choose and interact with different cartoon characters
 
@@ -19,7 +20,7 @@ Built with React + TypeScript + Vite for speed and developer experience.
 
 🎨 Clean and responsive UI with Tailwind CSS
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 Frontend: React, TypeScript, Vite
 
@@ -31,7 +32,7 @@ State Management: Redux Toolkit
 
 Linting: ESLint + TypeScript + React rules
 
-🚀 Getting Started
+## 🚀 Getting Started
 1. Clone the repo
 ```js
 https://github.com/tarakpatel1000/aicartoonfriend.git
@@ -49,3 +50,6 @@ npm run dev
 
 
 The app will be available at http://localhost:5173
+
+With Love,
+Andrew, Arisha, Aryan, Lina, Maalav, and Tarak
